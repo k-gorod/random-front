@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState, type FC } from "react";
+import React, { useEffect, useLayoutEffect, useState, type FC } from "react";
 import './user.css';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -42,7 +42,7 @@ const User : FC<IUser> = () => {
     localStorage.setItem('is-submited', `${isSubmited}`)
   } ,[isSubmited])
 
-  useEffect(()=>{
+  useLayoutEffect(()=>{
     setInputValue(localStorage.getItem('user-data') || '')
     setIsSubmited(localStorage.getItem('is-submited') === 'true' || false);
   }, [])
