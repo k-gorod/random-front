@@ -3,6 +3,7 @@
 import React, { useEffect, useState, type FC } from "react";
 import List from "../../../components/List";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface IAdmin {
 }
 
@@ -31,13 +32,15 @@ const Admin : FC<IAdmin> = () => {
   useEffect(()=>{
     fetchData()
   }, [])
+
+  console.log('serverData', serverData);
   
 
   return (
     <div className="">
       {
-        isLoading ? (
-          <List arrayOfItems={serverData || []}/>
+        !isLoading ? (
+            <List arrayOfItems={serverData || []}/>
         ) : null
       }
     </div>
