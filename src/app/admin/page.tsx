@@ -50,7 +50,9 @@ const Admin : FC<IAdmin> = () => {
     }
   },[markerIsVisible])
 
-
+  const onClearButtonClick = () => {
+    fetch('https://random-165h.onrender.com/admin/clear');
+  };
 
   useEffect(()=>{
     initialFetch();
@@ -67,9 +69,11 @@ const Admin : FC<IAdmin> = () => {
         !isLoading ? (
             <>
               <div className='admin_buttonWrapper'>
-                <button onClick={onSaveButtonClick} className="admin_saveButton">Сохранить</button>
+                <button onClick={onSaveButtonClick} className="admin_saveButton">Скопировать Список</button>
                 <div className={`admin_marker ${markerIsVisible ? 'admin_marker-vidible' : null}`}>Сохранено</div>
               </div>
+                <button onClick={onClearButtonClick} className="">Очистить все</button>
+              
               <div style={{margin: '10px 0'}} >Списк:</div>
               <hr />
               <List arrayOfItems={serverData || []}/>
