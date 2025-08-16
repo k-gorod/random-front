@@ -52,6 +52,9 @@ const User : FC<IUser> = () => {
       {
         isSubmited ? (
           <>
+            <div className="user_textBlock">
+              Ваше имя:
+            </div>
             <div>{inputValue}</div>
             <button onClick={onCancelButtonClick}>Отмена</button>
           </>
