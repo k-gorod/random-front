@@ -7,8 +7,8 @@ interface IUser {
 }
 
 const User : FC<IUser> = () => {
-  const [inputValue, setInputValue] = useState(localStorage.getItem('user-data') || '');
-  const [isSubmited, setIsSubmited] = useState(localStorage.getItem('is-submited') === 'true' || false);
+  const [inputValue, setInputValue] = useState('');
+  const [isSubmited, setIsSubmited] = useState(false);
 
 
   const onInputChange: React.ChangeEventHandler<HTMLInputElement>  = (event) =>{
@@ -35,6 +35,11 @@ const User : FC<IUser> = () => {
     useEffect(()=>{
     localStorage.setItem('is-submited', `${isSubmited}`)
   } ,[isSubmited])
+
+  useEffect(()=>{
+    setInputValue(localStorage.getItem('user-data') || '')
+    setIsSubmited(localStorage.getItem('is-submited') === 'true' || false);
+  }, [])
 
   return (
     <div className="">
