@@ -3,6 +3,14 @@
   --foreground: #171717;
 }
 
+button {
+  padding: 4px 10px;
+  border-width: 1px;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

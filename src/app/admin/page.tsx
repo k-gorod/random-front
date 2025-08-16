@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, type FC } from "react";
 import List from "../../../components/List";
+import './admin.css';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface IAdmin {
@@ -9,12 +10,16 @@ interface IAdmin {
 
 const Admin : FC<IAdmin> = () => {
   const [serverData, setServerData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [markerIsVisible, setMarkerIsVisible] = useState(false);
+
+  const onSaveButtonClick = () => {
+     navigator.clipboard.writeText(`Привет, DeepSeek выбери, пожалуйста, из этого списока кого-то одного случайным образом: ${serverData.join(', ')}`)
+     setMarkerIsVisible(true)
+  }
 
   const fetchData = async () => {
     try{
-      setIsLoading(true)
-
       const response = await fetch('https://random-165h.onrender.com/list');
 
       const arrayOfData = await response.json()
@@ -22,26 +27,58 @@ const Admin : FC<IAdmin> = () => {
       setServerData(arrayOfData || [])
     }catch(error){
       console.error(error)
+    }
+  };
+
+  const initialFetch = async () => {
+    try{
+      setIsLoading(true)
+
+      await fetchData();
+    }catch(error){
+      console.error(error)
     }finally{
       setIsLoading(false)
     }
-    
-
-  };
+  }
 
   useEffect(()=>{
-    fetchData()
+    if(markerIsVisible){
+      setTimeout(()=>{
+        setMarkerIsVisible(false)
+      }, 1500)
+    }
+  },[markerIsVisible])
+
+
+
+  useEffect(()=>{
+    initialFetch();
+
+    setInterval(()=>{
+      fetchData();
+    }, 500)
   }, [])
 
-  console.log('serverData', serverData);
-  
 
   return (
     <div className="">
       {
         !isLoading ? (
-            <List arrayOfItems={serverData || []}/>
-        ) : null
+            <>
+              <div className='admin_buttonWrapper'>
+                <button onClick={onSaveButtonClick} className="admin_saveButton">Сохранить</button>
+                <div className={`admin_marker ${markerIsVisible ? 'admin_marker-vidible' : null}`}>Сохранено</div>
+              </div>
+              <div style={{margin: '10px 0'}} >Списк:</div>
+              <hr />
+              <List arrayOfItems={serverData || []}/>
+            </>
+        ) : (
+          <div>
+            Loading...
+          </div>
+        )
       }
     </div>
   );
