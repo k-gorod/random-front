@@ -1,0 +1,23 @@
+.user_wrapper {
+  margin-top: 20px;
+  display: grid;
+  grid-gap: 10px;
+}
+
+.user_wrapper input {
+  height: 30px;
+  border-radius: 20px;
+  padding-left: 10px;
+}
+
+
+.user_wrapper button {
+  margin: 0 0 20px 0;
+}
+
+
+.user_textBlock {
+  font-weight: bold;
+  font-family: cursive;
+  color: rgb(0, 0, 93);
+}

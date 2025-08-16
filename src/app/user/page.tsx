@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect, useState, type FC } from "react";
+import './user.css';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface IUser {
@@ -9,16 +10,21 @@ interface IUser {
 const User : FC<IUser> = () => {
   const [inputValue, setInputValue] = useState('');
   const [isSubmited, setIsSubmited] = useState(false);
+  const [blockPage, setBlockPage] = useState(false)
 
 
   const onInputChange: React.ChangeEventHandler<HTMLInputElement>  = (event) =>{
     setInputValue(event.target.value)
   }
 
-  const onSubmitButtonClick = () => {
-    fetch(`https://random-165h.onrender.com/add?title=${inputValue}`, {
+  const onSubmitButtonClick = async () => {
+    setBlockPage(true)
+
+    await fetch(`https://random-165h.onrender.com/add?title=${inputValue}`, {
       method:'POST',
     })
+
+    setBlockPage(false)
     setIsSubmited(true)
   };
 
@@ -42,7 +48,7 @@ const User : FC<IUser> = () => {
   }, [])
 
   return (
-    <div className="">
+    <div className="user_wrapper" style={{ pointerEvents: blockPage ? 'none' : 'unset' }}>
       {
         isSubmited ? (
           <>
@@ -51,6 +57,9 @@ const User : FC<IUser> = () => {
           </>
         ) : (
           <>
+            <div className="user_textBlock">
+              Введите имя:
+            </div>
             <input onChange={onInputChange} value={inputValue}/>
             <button onClick={onSubmitButtonClick}>Подтвердить</button>
           </>

@@ -9,6 +9,12 @@ button {
   background: white;
   border-radius: 20px;
   cursor: pointer;
+  box-shadow: 0 0 3px 1px rgb(179, 179, 249);
+}
+
+
+button:hover {
+  box-shadow: 0 0 4px 2px rgb(132, 132, 249);
 }
 
 @media (prefers-color-scheme: dark) {
