@@ -1,4 +1,10 @@
 .user_wrapper {
+  height: 100dvh;
+  max-width: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+
   margin-top: 20px;
   display: grid;
   grid-gap: 10px;
